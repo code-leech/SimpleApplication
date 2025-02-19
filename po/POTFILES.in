@@ -1,0 +1,8 @@
+# List of source files containing translatable strings.
+# Please keep this file sorted alphabetically.
+data/org.self.SimpleApplication.desktop.in
+data/org.self.SimpleApplication.metainfo.xml.in
+data/org.self.SimpleApplication.gschema.xml
+src/main.c
+src/simpleapplication-window.c
+src/simpleapplication-window.ui

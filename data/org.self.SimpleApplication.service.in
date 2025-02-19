@@ -1,0 +1,3 @@
+[D-BUS Service]
+Name=org.self.SimpleApplication
+Exec=@bindir@/simpleapplication --gapplication-service

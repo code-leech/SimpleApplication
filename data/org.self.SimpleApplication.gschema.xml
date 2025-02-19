@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist gettext-domain="simpleapplication">
+	<schema id="org.self.SimpleApplication" path="/org/self/SimpleApplication/">
+	</schema>
+</schemalist>

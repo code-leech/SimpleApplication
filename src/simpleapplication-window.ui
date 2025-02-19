@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <requires lib="Adw" version="1.0"/>
+  <template class="SimpleapplicationWindow" parent="AdwApplicationWindow">
+    <property name="title" translatable="yes">Simple Application</property>
+    <property name="default-width">260</property>
+    <property name="default-height">370</property>
+    <property name="content">
+      <object class="AdwToolbarView">
+        <child type="top">
+          <object class="AdwHeaderBar">
+            <child type="end">
+              <object class="GtkMenuButton">
+                <property name="primary">True</property>
+                <property name="icon-name">open-menu-symbolic</property>
+                <property name="tooltip-text" translatable="yes">Main Menu</property>
+                <property name="menu-model">primary_menu</property>
+              </object>
+            </child>
+          </object>
+        </child>
+        <property name="content">
+          <object class="GtkBox" id="box">
+            <property name="orientation">vertical</property>
+              <property name="valign">center</property>
+            <child>
+              <object class="GtkButton" id="button">
+                <property name="label">Click me!</property>
+                <property name="halign">center</property>
+                <property name="margin-bottom">50</property>
+                <style>
+                  <class name="pill"/>
+                  <class name="suggested-action"/>
+                  <class name="title-3"/>
+                </style>
+              </object>
+            </child>
+            <child>
+              <object class="GtkListBox">
+                <property name="vexpand">true</property>
+                <property name="halign">center</property>
+                <property name="selection-mode">none</property>
+                <property name="css-classes">boxed-list-separate</property>
+                <child>
+                  <object class="GtkCheckButton" id="group1">
+                    <property name="height-request">50</property>
+                    <property name="label">  Option 1      </property>
+                    <property name="css-classes">title-2</property>
+                    <property name="margin-start">10</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkCheckButton">
+                    <property name="group">group1</property>
+                    <property name="height-request">50</property>
+                    <property name="label">  Option 2      </property>
+                    <property name="css-classes">title-2</property>
+                    <property name="margin-start">10</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </property>
+      </object>
+    </property>
+  </template>
+  <menu id="primary_menu">
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">_Preferences</attribute>
+        <attribute name="action">app.preferences</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="yes">_Keyboard Shortcuts</attribute>
+        <attribute name="action">win.show-help-overlay</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="yes">_About SimpleApplication</attribute>
+        <attribute name="action">app.about</attribute>
+      </item>
+    </section>
+  </menu>
+</interface>
