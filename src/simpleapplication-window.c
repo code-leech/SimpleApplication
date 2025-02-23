@@ -70,7 +70,7 @@ simpleapplication_setup (gpointer user_data)
 
         g_signal_connect (self->button, "clicked", G_CALLBACK (simpleapplication_button_start), NULL);
 
-        adw_style_manager_set_color_scheme (style, ADW_COLOR_SCHEME_PREFER_DARK);
+        adw_style_manager_set_color_scheme (style, ADW_COLOR_SCHEME_FORCE_DARK);
 
 }
 

@@ -12,7 +12,6 @@
               <object class="AdwSwitchRow" id="switchrow">
                 <property name="title">Dark mode</property>
                 <signal name="notify::active" handler="simpleapplication_switch_theme"/>
-                <property name="active">true</property>
                 <style>
                   <class name="title-4"/>
                 </style>
