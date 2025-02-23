@@ -25,11 +25,6 @@
             <property name="orientation">vertical</property>
               <property name="valign">center</property>
             <child>
-              <object class="GtkButton" id="btn2">
-                <property name="action-name">app.btn2</property>
-              </object>
-            </child>
-            <child>
               <object class="GtkButton" id="button">
                 <property name="label">Click me!</property>
                 <property name="halign">center</property>

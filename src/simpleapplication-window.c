@@ -66,12 +66,7 @@ static void
 simpleapplication_setup (gpointer user_data)
 {
   SimpleapplicationWindow *self = user_data;
-  AdwStyleManager *style = ADW_STYLE_MANAGER (adw_style_manager_get_default ());
-
   g_signal_connect (self->button, "clicked", G_CALLBACK (simpleapplication_button_start), NULL);
-
-  adw_style_manager_set_color_scheme (style, ADW_COLOR_SCHEME_FORCE_DARK);
-
 }
 
 static void

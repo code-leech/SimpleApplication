@@ -139,9 +139,20 @@ static const GActionEntry app_actions[] = {
   { "preferences", simpleapplication_preferences_start },
 };
 
+static gpointer
+simpleapplication_background_setup (gpointer user_data)
+{
+  AdwStyleManager *style = adw_style_manager_get_default ();
+  adw_style_manager_set_color_scheme (style, ADW_COLOR_SCHEME_FORCE_DARK);
+  return NULL;
+}
+
 static void
 simpleapplication_application_init (SimpleapplicationApplication *self)
 {
+  GThread *background_setup = g_thread_new ("background_setup", simpleapplication_background_setup, NULL);
+  g_thread_unref (background_setup);
+
   g_action_map_add_action_entries (G_ACTION_MAP (self),
 	                           app_actions,
 	                           G_N_ELEMENTS (app_actions),
@@ -152,4 +163,6 @@ simpleapplication_application_init (SimpleapplicationApplication *self)
   gtk_application_set_accels_for_action (GTK_APPLICATION (self),
                                          "app.preferences",
                                          (const char *[]) { "<primary>comma", NULL });
+
+
 }
