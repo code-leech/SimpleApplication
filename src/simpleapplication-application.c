@@ -24,6 +24,8 @@
 #include "simpleapplication-application.h"
 #include "simpleapplication-window.h"
 #include "simpleapplication-preferences.h"
+#include <unistd.h>
+
 
 struct _SimpleapplicationApplication
 {
