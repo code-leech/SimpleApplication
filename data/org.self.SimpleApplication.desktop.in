@@ -1,10 +1,10 @@
 [Desktop Entry]
-Name=Simple Application
+Name=simpleapplication
 Exec=simpleapplication
 Icon=org.self.SimpleApplication
 Terminal=false
 Type=Application
 Categories=Utility;
-Keywords=Simple;Application;GTK;Libadwaita;
+Keywords=GTK;
 StartupNotify=true
 DBusActivatable=true

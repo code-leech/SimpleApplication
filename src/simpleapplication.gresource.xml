@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gresources>
   <gresource prefix="/org/self/SimpleApplication">
-    <file preprocess="xml-stripblanks">simpleapplication-window.ui</file>
+    <file preprocess="xml-stripblanks">window.ui</file>
     <file preprocess="xml-stripblanks">gtk/help-overlay.ui</file>
-    <file preprocess="xml-stripblanks">simpleapplication-preferences.ui</file>
   </gresource>
 </gresources>

@@ -1,8 +1,11 @@
 {
     "id" : "org.self.SimpleApplication",
     "runtime" : "org.gnome.Platform",
-    "runtime-version" : "47",
+    "runtime-version" : "master",
     "sdk" : "org.gnome.Sdk",
+    "sdk-extensions" : [
+        "org.freedesktop.Sdk.Extension.rust-stable"
+    ],
     "command" : "simpleapplication",
     "finish-args" : [
         "--share=network",
@@ -11,6 +14,16 @@
         "--device=dri",
         "--socket=wayland"
     ],
+    "build-options" : {
+        "append-path" : "/usr/lib/sdk/rust-stable/bin",
+        "build-args" : [
+            "--share=network"
+        ],
+        "env" : {
+            "RUST_BACKTRACE" : "1",
+            "RUST_LOG" : "simpleapplication=debug"
+        }
+    },
     "cleanup" : [
         "/include",
         "/lib/pkgconfig",
@@ -32,13 +45,7 @@
                     "type" : "git",
                     "url" : "file:///home/carbon751/Projects"
                 }
-            ],
-            "config-opts" : [
-                "--libdir=lib"
             ]
         }
-    ],
-    "build-options" : {
-        "env" : {        }
-    }
+    ]
 }

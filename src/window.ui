@@ -29,6 +29,7 @@
                 <property name="label">Click me!</property>
                 <property name="halign">center</property>
                 <property name="margin-bottom">50</property>
+                <signal name="clicked" handler="handle_button_clicked"/>
                 <style>
                   <class name="pill"/>
                   <class name="suggested-action"/>
