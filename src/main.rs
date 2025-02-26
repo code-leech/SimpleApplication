@@ -21,9 +21,11 @@
 mod application;
 mod config;
 mod window;
+mod preferences;
 
 use self::application::SimpleapplicationApplication;
 use self::window::SimpleapplicationWindow;
+use self::preferences::SimpleapplicationPreferences;
 
 use config::{GETTEXT_PACKAGE, LOCALEDIR, PKGDATADIR};
 use gettextrs::{bind_textdomain_codeset, bindtextdomain, textdomain};

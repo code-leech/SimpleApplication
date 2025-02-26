@@ -25,6 +25,7 @@ use gtk::{gio, glib};
 
 use crate::config::VERSION;
 use crate::SimpleapplicationWindow;
+use crate::SimpleapplicationPreferences;
 
 mod imp {
     use super::*;
@@ -45,6 +46,7 @@ mod imp {
             let obj = self.obj();
             obj.setup_gactions();
             obj.set_accels_for_action("app.quit", &["<primary>q"]);
+            obj.set_accels_for_action("app.preferences", &["<primary>comma"]);
         }
     }
 
@@ -91,7 +93,16 @@ impl SimpleapplicationApplication {
         let about_action = gio::ActionEntry::builder("about")
             .activate(move |app: &Self, _, _| app.show_about())
             .build();
-        self.add_action_entries([quit_action, about_action]);
+        let preferences_action = gio::ActionEntry::builder("preferences")
+            .activate(move |app: &Self, _, _| app.show_preferences())
+            .build();
+        self.add_action_entries([quit_action, about_action, preferences_action]);
+    }
+
+    fn show_preferences(&self) {
+        let window = self.active_window().unwrap();
+        let preferences = SimpleapplicationPreferences::new();
+        preferences.present(Some(&window));
     }
 
     fn show_about(&self) {
@@ -102,7 +113,6 @@ impl SimpleapplicationApplication {
             .developer_name("Carbon751 (Matteo Pinti)")
             .version(VERSION)
             .developers(vec!["Carbon751 https://github.com/code-leech", "GTK Devs https://gtk.org/"])
-            // Translators: Replace "translator-credits" with your name/username, and optionally an email or URL.
             .translator_credits(&gettext("translator-credits"))
             .build();
 

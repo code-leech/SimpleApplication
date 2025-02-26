@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  <interface>
+  <requires lib="gtk" version="4.0"/>
+  <requires lib="Adw" version="1.0"/>
+    <template class="SimpleapplicationPreferences" parent="AdwPreferencesDialog">
+      <child>
+        <object class="AdwPreferencesPage"></object>
+      </child>
+    </template>
+  </interface>
