@@ -36,6 +36,7 @@ mod imp {
 
         fn class_init(klass: &mut Self::Class) {
             klass.bind_template();
+            klass.bind_template_callbacks();
         }
 
         fn instance_init(obj: &glib::subclass::InitializingObject<Self>) {
@@ -43,10 +44,28 @@ mod imp {
         }
     }
 
-    impl ObjectImpl for SimpleapplicationPreferences {}
+    impl ObjectImpl for SimpleapplicationPreferences {
+        fn constructed(&self) {
+            self.parent_constructed();
+
+        }
+    }
     impl WidgetImpl for SimpleapplicationPreferences {}
     impl AdwDialogImpl for SimpleapplicationPreferences {}
     impl PreferencesDialogImpl for SimpleapplicationPreferences {}
+
+    #[gtk::template_callbacks]
+    impl SimpleapplicationPreferences {
+        #[template_callback]
+        fn toggle_theme(switchrow: &adw::SwitchRow) {
+            let style = adw::StyleManager::default();
+            if switchrow.is_active() {
+                style.set_color_scheme(adw::ColorScheme::ForceDark);
+            } else {
+                style.set_color_scheme(adw::ColorScheme::ForceLight);
+            }
+        }
+    }
 }
 
 glib::wrapper! {

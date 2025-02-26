@@ -45,7 +45,13 @@ mod imp {
         }
     }
 
-    impl ObjectImpl for SimpleapplicationWindow {}
+    impl ObjectImpl for SimpleapplicationWindow {
+        fn constructed(&self) {
+            self.parent_constructed();
+            let style = adw::StyleManager::default();
+            style.set_color_scheme(adw::ColorScheme::ForceDark);
+        }
+    }
     impl WidgetImpl for SimpleapplicationWindow {}
     impl WindowImpl for SimpleapplicationWindow {}
     impl ApplicationWindowImpl for SimpleapplicationWindow {}

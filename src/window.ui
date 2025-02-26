@@ -6,6 +6,7 @@
     <property name="title" translatable="yes">Simple Application</property>
     <property name="default-width">260</property>
     <property name="default-height">370</property>
+    <property name="resizable">false</property>
     <property name="content">
       <object class="AdwToolbarView">
         <child type="top">

@@ -3,8 +3,22 @@
   <requires lib="gtk" version="4.0"/>
   <requires lib="Adw" version="1.0"/>
     <template class="SimpleapplicationPreferences" parent="AdwPreferencesDialog">
+      <property name="content-width">400</property>
+      <property name="presentation-mode">ADW_DIALOG_FLOATING</property>
       <child>
-        <object class="AdwPreferencesPage"></object>
+        <object class="AdwPreferencesPage">
+          <child>
+            <object class="AdwPreferencesGroup">
+              <child>
+                <object class="AdwSwitchRow">
+                  <property name="title">Dark mode</property>
+                  <property name="css-classes">title-4</property>
+                  <signal name="notify::active" handler="toggle_theme"/>
+                </object>
+              </child>
+            </object>
+          </child>
+        </object>
       </child>
     </template>
   </interface>
