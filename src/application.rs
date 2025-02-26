@@ -97,11 +97,11 @@ impl SimpleapplicationApplication {
     fn show_about(&self) {
         let window = self.active_window().unwrap();
         let about = adw::AboutDialog::builder()
-            .application_name("simpleapplication")
+            .application_name("Simple Application")
             .application_icon("org.self.SimpleApplication")
-            .developer_name("Carbon751")
+            .developer_name("Carbon751 (Matteo Pinti)")
             .version(VERSION)
-            .developers(vec!["Carbon751"])
+            .developers(vec!["Carbon751 https://github.com/code-leech", "GTK Devs https://gtk.org/"])
             // Translators: Replace "translator-credits" with your name/username, and optionally an email or URL.
             .translator_credits(&gettext("translator-credits"))
             .build();
