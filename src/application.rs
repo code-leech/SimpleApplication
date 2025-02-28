@@ -110,7 +110,7 @@ impl SimpleapplicationApplication {
         let about = adw::AboutDialog::builder()
             .application_name("Simple Application")
             .application_icon("org.self.SimpleApplication")
-            .developer_name("Carbon751 (Matteo Pinti)")
+            .developer_name("Carbon751")
             .version(VERSION)
             .developers(vec!["Carbon751 https://github.com/code-leech", "GTK Devs https://gtk.org/"])
             .translator_credits(&gettext("translator-credits"))

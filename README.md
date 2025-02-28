@@ -1,3 +1,3 @@
-# simpleapplication
+# A Libadwaita for Rust demo!
 
-A description of this project.
+This demonstrates basic usage of GNOME Builder and Rust. Feel free to copy concepts!
