@@ -48,8 +48,12 @@ mod imp {
     impl ObjectImpl for SimpleapplicationWindow {
         fn constructed(&self) {
             self.parent_constructed();
-            let style = adw::StyleManager::default();
-            style.set_color_scheme(adw::ColorScheme::ForceDark);
+            glib::spawn_future_local(
+                async move {
+                    let style = adw::StyleManager::default();
+                    style.set_color_scheme(adw::ColorScheme::ForceDark);
+                }
+            );
         }
     }
     impl WidgetImpl for SimpleapplicationWindow {}

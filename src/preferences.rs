@@ -26,7 +26,10 @@ mod imp {
 
     #[derive(Debug, Default, gtk::CompositeTemplate)]
     #[template(resource = "/org/self/SimpleApplication/preferences.ui")]
-    pub struct SimpleapplicationPreferences {}
+    pub struct SimpleapplicationPreferences {
+        #[template_child]
+        pub switchrow: TemplateChild<adw::SwitchRow>
+    }
 
     #[glib::object_subclass]
     impl ObjectSubclass for SimpleapplicationPreferences {
@@ -47,7 +50,18 @@ mod imp {
     impl ObjectImpl for SimpleapplicationPreferences {
         fn constructed(&self) {
             self.parent_constructed();
-
+            glib::spawn_future_local(
+                glib::clone!(
+                    #[weak (rename_to = obj)]
+                    self,
+                    async move {
+                        let style = adw::StyleManager::default();
+                        if style.is_dark() {
+                            obj.switchrow.set_active(true);
+                        }
+                    }
+                )
+            );
         }
     }
     impl WidgetImpl for SimpleapplicationPreferences {}

@@ -10,7 +10,7 @@
           <child>
             <object class="AdwPreferencesGroup">
               <child>
-                <object class="AdwSwitchRow">
+                <object class="AdwSwitchRow" id="switchrow">
                   <property name="title">Dark mode</property>
                   <property name="css-classes">title-4</property>
                   <signal name="notify::active" handler="toggle_theme"/>
