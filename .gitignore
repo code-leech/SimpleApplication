@@ -47,6 +47,8 @@
 *.cmd
 .tmp_versions/
 target/
+org.self.SimpleApplication.json~
+o
 modules.order
 Module.symvers
 Mkfile.old

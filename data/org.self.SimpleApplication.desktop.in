@@ -1,5 +1,5 @@
 [Desktop Entry]
-Name=simpleapplication
+Name=Simple Application
 Exec=simpleapplication
 Icon=org.self.SimpleApplication
 Terminal=false
