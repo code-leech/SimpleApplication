@@ -27,7 +27,14 @@ mod imp {
 
     #[derive(Debug, Default, gtk::CompositeTemplate)]
     #[template(resource = "/org/self/SimpleApplication/themer.ui")]
-    pub struct SimpleapplicationThemer {}
+    pub struct SimpleapplicationThemer {
+        #[template_child]
+        pub light: TemplateChild<gtk::CheckButton>,
+        #[template_child]
+        pub dark: TemplateChild<gtk::CheckButton>,
+        #[template_child]
+        pub follow: TemplateChild<gtk::CheckButton>,
+    }
 
     #[glib::object_subclass]
     impl ObjectSubclass for SimpleapplicationThemer {
