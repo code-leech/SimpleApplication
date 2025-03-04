@@ -21,11 +21,12 @@
 use gettextrs::gettext;
 use adw::prelude::*;
 use adw::subclass::prelude::*;
-use gtk::{gio, glib};
+use gtk::{gio, glib, gdk};
+use gdk::Display;
+
 
 use crate::config::VERSION;
 use crate::SimpleapplicationWindow;
-use crate::SimpleapplicationPreferences;
 
 mod imp {
     use super::*;
@@ -45,8 +46,8 @@ mod imp {
             self.parent_constructed();
             let obj = self.obj();
             obj.setup_gactions();
+            obj.connect_startup(|obj| obj.get_styles());
             obj.set_accels_for_action("app.quit", &["<primary>q"]);
-            obj.set_accels_for_action("app.preferences", &["<primary>comma"]);
         }
     }
 
@@ -86,6 +87,18 @@ impl SimpleapplicationApplication {
             .build()
     }
 
+    fn get_styles(&self) {
+        let provider = gtk::CssProvider::new();
+        provider.load_from_resource("/org/self/SimpleApplication/style.css");
+
+        // Add the provider to the default screen
+        gtk::style_context_add_provider_for_display(
+        &Display::default().expect("Could not connect to a display."),
+        &provider,
+        gtk::STYLE_PROVIDER_PRIORITY_APPLICATION,
+    );
+    }
+
     fn setup_gactions(&self) {
         let quit_action = gio::ActionEntry::builder("quit")
             .activate(move |app: &Self, _, _| app.quit())
@@ -93,16 +106,7 @@ impl SimpleapplicationApplication {
         let about_action = gio::ActionEntry::builder("about")
             .activate(move |app: &Self, _, _| app.show_about())
             .build();
-        let preferences_action = gio::ActionEntry::builder("preferences")
-            .activate(move |app: &Self, _, _| app.show_preferences())
-            .build();
-        self.add_action_entries([quit_action, about_action, preferences_action]);
-    }
-
-    fn show_preferences(&self) {
-        let window = self.active_window().unwrap();
-        let preferences = SimpleapplicationPreferences::new();
-        preferences.present(Some(&window));
+        self.add_action_entries([quit_action, about_action]);
     }
 
     fn show_about(&self) {

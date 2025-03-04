@@ -21,13 +21,17 @@
 use gtk::prelude::*;
 use adw::subclass::prelude::*;
 use gtk::{gio, glib};
+use crate::SimpleapplicationThemer;
 
 mod imp {
     use super::*;
 
     #[derive(Debug, Default, gtk::CompositeTemplate)]
     #[template(resource = "/org/self/SimpleApplication/window.ui")]
-    pub struct SimpleapplicationWindow {}
+    pub struct SimpleapplicationWindow {
+        #[template_child]
+        pub primary_menu_button: TemplateChild<gtk::MenuButton>
+    }
 
     #[glib::object_subclass]
     impl ObjectSubclass for SimpleapplicationWindow {
@@ -48,14 +52,19 @@ mod imp {
     impl ObjectImpl for SimpleapplicationWindow {
         fn constructed(&self) {
             self.parent_constructed();
-            glib::spawn_future_local(
-                async move {
-                    let style = adw::StyleManager::default();
-                    style.set_color_scheme(adw::ColorScheme::ForceDark);
-                }
-            );
+            glib::spawn_future_local(async move {
+                let style = adw::StyleManager::default();
+                style.set_color_scheme(adw::ColorScheme::ForceDark);
+            });
+
+            // Setup menu
+            let primary_menu = self.primary_menu_button.popover()
+                .expect("Failed to get menu")
+                .downcast::<gtk::PopoverMenu>();
+            primary_menu.expect("Failed to add themer").add_child(&SimpleapplicationThemer::new(), "themer");
         }
     }
+
     impl WidgetImpl for SimpleapplicationWindow {}
     impl WindowImpl for SimpleapplicationWindow {}
     impl ApplicationWindowImpl for SimpleapplicationWindow {}
@@ -71,6 +80,7 @@ mod imp {
                 button.set_label("Clicked!");
                 button.set_css_classes(&["pill", "destructive-action", "title-3"]);
                 glib::timeout_future_seconds(2).await;
+
                 // Activate the button again
                 button.set_label("Click me!");
                 button.set_css_classes(&["pill", "suggested-action", "title-3"]);
@@ -82,7 +92,8 @@ mod imp {
 
 glib::wrapper! {
     pub struct SimpleapplicationWindow(ObjectSubclass<imp::SimpleapplicationWindow>)
-        @extends gtk::Widget, gtk::Window, gtk::ApplicationWindow, adw::ApplicationWindow,        @implements gio::ActionGroup, gio::ActionMap;
+        @extends gtk::Widget, gtk::Window, gtk::ApplicationWindow, adw::ApplicationWindow,
+        @implements gio::ActionGroup, gio::ActionMap;
 }
 
 impl SimpleapplicationWindow {
@@ -92,3 +103,4 @@ impl SimpleapplicationWindow {
             .build()
     }
 }
+
