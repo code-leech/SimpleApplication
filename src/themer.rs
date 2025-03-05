@@ -18,9 +18,9 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-use gtk::glib;
+use gtk::{glib, gio};
 use adw::subclass::prelude::*;
-use adw::prelude::CheckButtonExt;
+use adw::prelude::*;
 
 mod imp {
     use super::*;
@@ -52,7 +52,21 @@ mod imp {
         }
     }
 
-    impl ObjectImpl for SimpleapplicationThemer {}
+    impl ObjectImpl for SimpleapplicationThemer {
+        fn constructed(&self) {
+            self.parent_constructed();
+            let settings = gio::Settings::new("org.self.SimpleApplication");
+            glib::spawn_future_local(glib::clone!(#[weak(rename_to = obj)] self, async move {
+                let saved_style =  settings.int("theme");
+                match saved_style {
+                    3 => obj.dark.set_active(true),
+                    2 => obj.light.set_active(true),
+                    1 => obj.follow.set_active(true),
+                    _ => (),
+                }
+            }));
+        }
+    }
     impl WidgetImpl for SimpleapplicationThemer {}
     impl BoxImpl for SimpleapplicationThemer {}
 
@@ -61,24 +75,36 @@ mod imp {
         #[template_callback]
         fn follow_toggled(follow: gtk::CheckButton) {
             if follow.is_active() {
-                let style = adw::StyleManager::default();
-                style.set_color_scheme(adw::ColorScheme::Default);
+                glib::spawn_future_local(async move {
+                    let style = adw::StyleManager::default();
+                    let settings = gio::Settings::new("org.self.SimpleApplication");
+                    style.set_color_scheme(adw::ColorScheme::Default);
+                    settings.set_int("theme", 1).expect("Failed to save theme");
+                });
             }
         }
 
         #[template_callback]
         fn light_toggled(light: gtk::CheckButton) {
             if light.is_active() {
-                let style = adw::StyleManager::default();
-                style.set_color_scheme(adw::ColorScheme::ForceLight);
+                glib::spawn_future_local(async move {
+                    let style = adw::StyleManager::default();
+                    let settings = gio::Settings::new("org.self.SimpleApplication");
+                    style.set_color_scheme(adw::ColorScheme::ForceLight);
+                    settings.set_int("theme", 2).expect("Failed to save theme");
+                });
             }
         }
 
         #[template_callback]
         fn dark_toggled(dark: gtk::CheckButton) {
             if dark.is_active() {
-                let style = adw::StyleManager::default();
-                style.set_color_scheme(adw::ColorScheme::ForceDark);
+                glib::spawn_future_local(async move {
+                    let style = adw::StyleManager::default();
+                    let settings = gio::Settings::new("org.self.SimpleApplication");
+                    style.set_color_scheme(adw::ColorScheme::ForceDark);
+                    settings.set_int("theme", 3).expect("Failed to save theme");
+                });
             }
         }
     }

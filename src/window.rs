@@ -52,9 +52,16 @@ mod imp {
     impl ObjectImpl for SimpleapplicationWindow {
         fn constructed(&self) {
             self.parent_constructed();
+            let settings = gio::Settings::new("org.self.SimpleApplication");
             glib::spawn_future_local(async move {
                 let style = adw::StyleManager::default();
-                style.set_color_scheme(adw::ColorScheme::ForceDark);
+                let saved_style =  settings.int("theme");
+                match saved_style {
+                    3 => style.set_color_scheme(adw::ColorScheme::ForceDark),
+                    2 => style.set_color_scheme(adw::ColorScheme::ForceLight),
+                    1 => style.set_color_scheme(adw::ColorScheme::Default),
+                    _ => (),
+                }
             });
 
             // Setup menu
